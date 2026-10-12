@@ -123,9 +123,16 @@ TRAINER_NAME_BORDER = 4
 TRAINER_POKEMON_SPRITE_SIZE = 100
 TRAINER_POKEMON_SPRITE_BORDER = 7
 
+SIGNATURE_LIFT = 25
+SIGNATURE_PLATE_RADIUS = 15
+SIGNATURE_PLATE_BORDER = 5
+SIGNATURE_PADDING = [20, 10] # [x, y]
+SIGNATURE = "Created by JoshBell302 on GitHub"
+
 CARD_COLOR = "#202B40"
 TEXT_COLOR = "#FFFFFF"
 MUTED_COLOR = "#C3D0E5"
+SIGNATURE_BORDER_COLOR = "#D8B45A"
 PLACEMENT_COLORS = {
     1: {
         "border": "#D8B45A",
@@ -560,6 +567,43 @@ def get_card_positions(image_width, image_height, count, top):
         positions.append((x, y, x + card_width, y + card_height))
     return positions
 
+def draw_signature(image):
+    # Create the draw object and Font
+    draw = ImageDraw.Draw(image)
+    font = ImageFont.truetype("arialbd.ttf", 25)
+
+    # Create the textbox for text calculations
+    textbox_signature = draw.textbbox((0, 0), SIGNATURE, font=font)
+    text_width = textbox_signature[2] - textbox_signature[0]
+    text_height = textbox_signature[3] - textbox_signature[1]
+
+    # Calculate plate dimensions
+    plate_width = text_width + SIGNATURE_PADDING[0] * 2
+    plate_height = text_height + SIGNATURE_PADDING[1] * 2
+
+    # Center horizontally at the bottom of the image
+    x = (image.width - plate_width) // 2
+    y = image.height - plate_height - SIGNATURE_LIFT
+
+    # Draw rounded rectangle with border
+    draw.rounded_rectangle(
+        (x, y, x + plate_width, y + plate_height),
+        radius=SIGNATURE_PLATE_RADIUS,
+        fill=CARD_COLOR,
+        outline=SIGNATURE_BORDER_COLOR,
+        width=SIGNATURE_PLATE_BORDER
+    )
+
+    # Center the text inside the plate and draw it
+    text_x = x + (plate_width - text_width) // 2 - textbox_signature[0]
+    text_y = y + (plate_height - text_height) // 2 - textbox_signature[1]
+    draw.text(
+        (text_x, text_y),
+        SIGNATURE,
+        font=font,
+        fill=TEXT_COLOR
+    )
+
 """
 This will take the Standings of the players from the given CSV file and then draw them to the Standings image
 """
@@ -612,4 +656,5 @@ if __name__ == "__main__":
         info="September 14th • Reg M-C • 23 Players"
     )
     draw_standings(standings_image)
+    draw_signature(standings_image)
     standings_image.save(filename)
