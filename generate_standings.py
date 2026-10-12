@@ -68,6 +68,196 @@ CWD = str(Path.cwd())
 ASSET_PATH = f"{CWD}\\assets\\"
 VGC_ICON_PATH = f"{ASSET_PATH}Pokemon VGC Icon.png"
 NON_MEGA_STONE_ITE_ITEMS = ["White Herb", "Eviolite"]
+SPECIAL_POKEMON_URL_ADJUSTMENTS = {
+    "Pikachu-Original": "pikachu-original-cap",
+    "Pikachu-Partner": "pikachu-partner-cap",
+    "Pikachu-World": "pikachu-world-cap",
+    "Pikachu-Hoenn": "pikachu-hoenn-cap",
+    "Pikachu-Sinnoh": "pikachu-sinnoh-cap",
+    "Pikachu-Unova": "pikachu-unova-cap",
+    "Pikachu-Kalos": "pikachu-kalos-cap",
+    "Pikachu-Alola": "pikachu-alola-cap",
+    "Tauros-Paldea-Combat": "tauros-paldea-combat-breed",
+    "Tauros-Paldea-Blaze": "tauros-paldea-blaze-breed",
+    "Tauros-Paldea-Aqua": "tauros-paldea-aqua-breed",
+    "Deoxys": "deoxys-normal",
+    "Wormadam": "wormadam-plant",
+    "Cherrim-Sunshine": "cherrim",
+    "Shellos-East": "shellos",
+    "Gastrodon-East": "gastrodon",
+    "Giratina": "giratina-altered",
+    "Shaymin": "shaymin-land",
+    "Arceus-Fighting": "arceus",
+    "Arceus-Flying": "arceus",
+    "Arceus-Poisona": "arceus",
+    "Arceus-Ground": "arceus",
+    "Arceus-Rock": "arceus",
+    "Arceus-Bug": "arceus",
+    "Arceus-Ghost": "arceus",
+    "Arceus-Steel": "arceus",
+    "Arceus-Fire": "arceus",
+    "Arceus-Water": "arceus",
+    "Arceus-Grass": "arceus",
+    "Arceus-Electric": "arceus",
+    "Arceus-Psychic": "arceus",
+    "Arceus-Ice": "arceus",
+    "Arceus-Dragon": "arceus",
+    "Arceus-Dark": "arceus",
+    "Arceus-Fairy": "arceus",
+    "Darmanitan": "darmanitan-standard",
+    "Darmanitan-Galar": "darmanitan-galar-standard",
+    "Deerling-Winter": "deerling",
+    "Deerling-Summer": "deerling",
+    "Deerling-Autumn": "deerling",
+    "Sawsbuck-Winter": "sawsbuck",
+    "Sawsbuck-Summer": "sawsbuck",
+    "Sawsbuck-Autumn": "sawsbuck",
+    "Tornadus": "tornadus-incarnate",
+    "Thundurus": "thundurus-incarnate",
+    "Landorus": "landorus-incarnate",
+    "Keldeo": "keldeo-ordinary",
+    "Genesect-Douse": "genesect",
+    "Genesect-Shock": "genesect",
+    "Genesect-Burn": "genesect",
+    "Genesect-Chill": "genesect",
+    "Vivillon-Icy-Snow": "vivillon",
+    "Vivillon-Polar": "vivillon",
+    "Vivillon-Tundra": "vivillon",
+    "Vivillon-Continental": "vivillon",
+    "Vivillon-Garden": "vivillon",
+    "Vivillon-Elegant": "vivillon",
+    "Vivillon-Modern": "vivillon",
+    "Vivillon-Marine": "vivillon",
+    "Vivillon-Archipelago": "vivillon",
+    "Vivillon-High Plains": "vivillon",
+    "Vivillon-Sandstorm": "vivillon",
+    "Vivillon-River": "vivillon",
+    "Vivillon-Monsoon": "vivillon",
+    "Vivillon-Savanna": "vivillon",
+    "Vivillon-Sun": "vivillon",
+    "Vivillon-Ocean": "vivillon",
+    "Vivillon-Jungle": "vivillon",
+    "Vivillon-Fancy": "vivillon",
+    "Vivillon-Pokeball": "vivillon",
+    "Flabébé": "flabebe",
+    "Flabébé-Blue": "flabebe",
+    "Flabébé-Orange": "flabebe",
+    "Flabébé-White": "flabebe",
+    "Flabébé-Yellow": "flabebe",
+    "Floette-Blue": "floette",
+    "Floette-Orange": "floette",
+    "Floette-White": "floette",
+    "Floette-Yellow": "floette",
+    "Florges-Blue": "florges",
+    "Florges-Orange": "florges",
+    "Florges-White": "florges",
+    "Florges-Yellow": "florges",
+    "Furfrou-Heart": "furfrou",
+    "Furfrou-Star": "furfrou",
+    "Furfrou-Diamond": "furfrou",
+    "Furfrou-Debutanta": "furfrou",
+    "Furfrou-Matron": "furfrou",
+    "Furfrou-Dandy": "furfrou",
+    "Furfrou-La Reine": "furfrou",
+    "Furfrou-Kabuki": "furfrou",
+    "Furfrou-Pharaoh": "furfrou",
+    "Meowstic": "meowstic-male",
+    "Meowstic-F": "meowstic-female",
+    "Pumpkaboo-Large": "pumpkaboo",
+    "Pumpkaboo-Small": "pumpkaboo",
+    "Pumpkaboo-Super": "pumpkaboo",
+    "Gourgeist-Large": "gourgeist",
+    "Gourgeist-Small": "gourgeist",
+    "Gourgeist-Super": "gourgeist",
+    "Xerneas-Neutral": "xerneas",
+    "Zygarde-10%": "zygarde",
+    "Zygarde-Complete": "zygarde",
+    "Oricorio": "oricorio-baile",
+    "Oricorio-Pa'u": "oricorio-pau",
+    "Lycanroc": "lycanroc-midday",
+    "Silvally-Fighting": "silvally",
+    "Silvally-Flying": "silvally",
+    "Silvally-Poisona": "silvally",
+    "Silvally-Ground": "silvally",
+    "Silvally-Rock": "silvally",
+    "Silvally-Bug": "silvally",
+    "Silvally-Ghost": "silvally",
+    "Silvally-Steel": "silvally",
+    "Silvally-Fire": "silvally",
+    "Silvally-Water": "silvally",
+    "Silvally-Grass": "silvally",
+    "Silvally-Electric": "silvally",
+    "Silvally-Psychic": "silvally",
+    "Silvally-Ice": "silvally",
+    "Silvally-Dragon": "silvally",
+    "Silvally-Dark": "silvally",
+    "Silvally-Fairy": "silvally",
+    "Minior-Orange": "minior",
+    "Minior-Yellow": "minior",
+    "Minior-Green": "minior",
+    "Minior-Blue": "minior",
+    "Minior-Indigo": "minior",
+    "Minior-Violet": "minior",
+    "Necrozma-Dawn-Wings": "necrozma-dawn",
+    "Necrozma-Dusk-Mane": "necrozma-dusk",
+    "Toxtricity": "toxtricity-amped",
+    "Toxtricity-Low-Key": "toxtricity-low-key",
+    "Sinistea-Antique": "sinistea",
+    "Polteageist-Antique": "polteageist",
+    "Alcremie-Ruby-Cream": "alcremie",
+    "Alcremie-Matcha-Cream": "alcremie",
+    "Alcremie-Mint-Cream": "alcremie",
+    "Alcremie-Lemon-Cream": "alcremie",
+    "Alcremie-Salted-Cream": "alcremie",
+    "Alcremie-Ruby-Swirl": "alcremie",
+    "Alcremie-Caramel-Swirl": "alcremie",
+    "Alcremie-Rainbow-Swirl": "alcremie",
+    "Eiscue": "eiscue-ice",
+    "Indeedee": "indeedee-male",
+    "Indeedee-F": "indeedee-female",
+    "Morpeko": "morpeko-full-belly",
+    "Urshifu": "urshifu-single-strike",
+    "Basculegion": "basculegion-male",
+    "Basculegion-F": "basculegion-female",
+    "Enamorus": "enamorus-incarnate",
+    "Oinkologne": "oinkologne-male",
+    "Oinkologne-F": "oinkologne-female",
+    "Maushold": "maushold-family-of-three",
+    "Maushold-Four": "maushold-family-of-four",
+    "Squawkabilly": "squawkabilly-green-plumage", 
+    "Squawkabilly-Blue": "squawkabilly-blue-plumage", 
+    "Squawkabilly-White": "squawkabilly-white-plumage", 
+    "Squawkabilly-Yellow": "squawkabilly-yellow-plumage", 
+    "Palafin": "palafin-hero",
+    "Tatsugiri": "tatsugiri-curly",
+    "Dudunsparce": "dudunsparce-two-segment",
+    "Great Tusk": "great-tusk",
+    "Scream Tail": "scream-tail",
+    "Brute Bonnet": "brute-bonnet",
+    "Flutter Mane": "flutter-mane",
+    "Silther Wing": "slither-wing",
+    "Sandy Shocks": "sandy-shocks",
+    "Roaring Moon": "roaring-moon",
+    "Walking Wake": "walking-wake",
+    "Gouging Fire": "gouging-fire",
+    "Raging Bolt": "raging-bolt",
+    "Iron Treads": "iron-treads",
+    "Iron Bundle": "iron-bundle",
+    "Iron Hands": "iron-hands",
+    "Iron Jugulis": "iron-jugulis",
+    "Iron Moth": "iron-moth",
+    "Iron Thorns": "iron-thorns",
+    "Iron Valiant": "iron-valiant",
+    "Iron Leaves": "iron-leaves",
+    "Iron Boulder": "iron-boulder",
+    "Iron Crown": "iron-crown",
+    "Poltchageist-Artisan": "poltchageist",
+    "Sinistcha-Masterpiece": "sinistcha",
+    "Ogerpon-Wellspring": "ogerpon-wellspring-mask",
+    "Ogerpon-Hearthflame": "ogerpon-hearthflame-mask",
+    "Ogerpon-Cornerstone": "ogerpon-cornerstone-mask",
+    "Terapagos": "terapagos-terastal",
+}
 
 THEMES = {
     "Portland - Dark": 
@@ -123,7 +313,7 @@ TRAINER_NAME_BORDER = 4
 TRAINER_POKEMON_SPRITE_SIZE = 100
 TRAINER_POKEMON_SPRITE_BORDER = 7
 
-SIGNATURE_LIFT = 25
+SIGNATURE_LIFT = 5
 SIGNATURE_PLATE_RADIUS = 15
 SIGNATURE_PLATE_BORDER = 5
 SIGNATURE_PADDING = [20, 10] # [x, y]
@@ -192,9 +382,11 @@ def deconstruct_pokepaste(pokepaste):
             name = first_line.strip()
             item = "None"
 
-        # Remove the gender icon to the name if there is one
-        # Remove gender markers like (F) or (M) from the name
+        # Adjust the name if needed for PokeAPI Image request
         name = re.sub(r"\s+\([FM]\)$", "", name)
+        if name in SPECIAL_POKEMON_URL_ADJUSTMENTS.keys():
+            print(f"Special name found! Adjusting '{name}' to '{SPECIAL_POKEMON_URL_ADJUSTMENTS[name]}'")
+            name = SPECIAL_POKEMON_URL_ADJUSTMENTS[name]
 
         # Begin creating the Pokemon class
         pokemon = Pokemon(name)
@@ -505,7 +697,8 @@ def draw_trainer_card(image, trainer, placing, bounds):
 
 
     # Draw a divider below the trainer information
-    divider_y = top + STANDINGS_PLACING_BADGE_SIZE + (STANDINGS_PLACING_BADGE_BORDER * 2)
+    top_slot_height = STANDINGS_PLACING_BADGE_SIZE + (STANDINGS_PLACING_BADGE_BORDER * 2)
+    divider_y = top + top_slot_height
     draw.line(
         (left + STANDINGS_PLACING_BADGE_BORDER, divider_y, right - STANDINGS_PLACING_BADGE_BORDER, divider_y),
         fill=MUTED_COLOR,
@@ -515,8 +708,9 @@ def draw_trainer_card(image, trainer, placing, bounds):
     # Calculate the space available for each Pokemon
     slot_width = card_width / len(trainer.pokemon)
     sprite_y = divider_y + TRAINER_POKEMON_SPRITE_BORDER
+    sprite_size = card_height - top_slot_height - (2 * TRAINER_POKEMON_SPRITE_BORDER)
 
-    # Draw each Pokemon sprite and name
+    # Draw each Pokemon sprite
     for i, pokemon in enumerate(trainer.pokemon):
         center_x = left + slot_width * (i + 0.5)
 
@@ -527,7 +721,7 @@ def draw_trainer_card(image, trainer, placing, bounds):
                 with Image.open(BytesIO(response.content)) as source:
                     sprite = source.convert("RGBA")
                 sprite.thumbnail(
-                    (TRAINER_POKEMON_SPRITE_SIZE, TRAINER_POKEMON_SPRITE_SIZE),
+                    (sprite_size, sprite_size),
                     Image.Resampling.LANCZOS
                 )
 
