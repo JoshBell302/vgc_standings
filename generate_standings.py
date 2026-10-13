@@ -61,6 +61,35 @@ class Theme:
         self.color_1 = color_1
         self.color_2 = color_2
 
+class Local:
+    challenge: bool
+    cup: bool
+    date: str
+    location: str
+    regulation: str
+    player_count: int
+
+    def __init__(self, challenge, cup, location, date, regulation, player_count):
+        self.challenge = challenge
+        self.cup = cup
+        self.location = location
+        self.date = date
+        self.regulation = regulation
+        self.player_count = player_count
+
+    def print_standings_location(self):
+        if self.challenge and not self.cup:
+            event_type = "CHALLENGE"
+        elif self.cup and not self.challenge:
+            event_type = "CUP"
+        else:
+            event_type = "LOCAL"
+        return f"VG LEAGUE {event_type} • {self.location.upper()}"
+
+    def print_standings_info(self):
+        return f"{self.date} • Regulation {self.regulation} • {self.player_count} Players"
+
+
 # -- Globals --------------------------------------------------------------------------------------
 
 POKEAPI_URL = "https://pokeapi.co/api/v2"
@@ -305,6 +334,8 @@ STANDINGS_CARD_BORDER = 5
 STANDINGS_PLACING_BADGE_SIZE = 50
 STANDINGS_PLACING_BADGE_BORDER = 15
 STANDINGS_PLACING_BADGE_RADIUS = 10
+STANDINGS_INFO_DROP = 2
+
 TRAINER_NAME_WITH_HANDLE_SIZE = 28
 TRAINER_HANDLE_SIZE = 18
 TRAINER_NAME_AND_HANDLE_BORDER = 7
@@ -474,7 +505,7 @@ def draw_horizontal_gradient(image, y, height, color1, color2):
     # Once the gradient is made paste it onto the image given
     image.paste(gradient, (0, y))
 
-def draw_title(image, header_height, location, info):
+def draw_title(image: Image, header_height, local: Local):
     # Get the dimensions of the main standings image
     image_width = image.width
 
@@ -513,7 +544,7 @@ def draw_title(image, header_height, location, info):
     while(location_verification):
         # Prepare the textbox to add
         location_font = ImageFont.truetype("arialbd.ttf", location_font_size)
-        textbox_location = draw.textbbox((0,0), location, font=location_font)
+        textbox_location = draw.textbbox((0,0), local.print_standings_location(), font=location_font)
 
         # Check to see if the location portion will fit confetably in the rhombus
         if ((textbox_location[2] - textbox_location[0]) >= (rhombus_width-(RHOMBUS_WIDTH_DIFFERENCE * 2) - RHOMBUS_TEXT_SIDE_BORDER)):
@@ -531,7 +562,7 @@ def draw_title(image, header_height, location, info):
     # Draw the Location text in the Rhombus
     draw.text(
         (location_text_x, location_text_y + RHOMBUS_TEXT_VERTICAL_BORDER),
-        location,
+        local.print_standings_location(),
         font=location_font,
         fill="black"
     )
@@ -554,7 +585,7 @@ def draw_title(image, header_height, location, info):
     while(info_verification):
         # Prepare the textbox to add
         info_font = ImageFont.truetype("arialbd.ttf", info_font_size)
-        textbox_info = draw.textbbox((0,0), info, font=info_font)
+        textbox_info = draw.textbbox((0,0), local.print_standings_info(), font=info_font)
     
         # Check to see if the info portion will fit confetably in the rhombus
         if ((textbox_info[2] - textbox_info[0]) >= (rhombus_width-(RHOMBUS_WIDTH_DIFFERENCE * 2) - RHOMBUS_TEXT_SIDE_BORDER)):
@@ -571,8 +602,8 @@ def draw_title(image, header_height, location, info):
     
     # Draw the Info text in the Rhombus
     draw.text(
-        (info_text_x, info_text_y + (RHOMBUS_TEXT_VERTICAL_BORDER * 2)),
-        info,
+        (info_text_x, info_text_y + (RHOMBUS_TEXT_VERTICAL_BORDER * 2) + STANDINGS_INFO_DROP),
+        local.print_standings_info(),
         font=info_font,
         fill="black"
     )
@@ -843,11 +874,18 @@ def draw_standings(image, filename="standings.csv"):
 if __name__ == "__main__":
     filename="standings.png"
     standings_image, header_height = draw_theme(theme=THEMES["Portland - Dark"])
+    local_object = Local(
+        challenge=True, 
+        cup=False,
+        location="wayward",
+        date="September 14th",
+        regulation="M-C",
+        player_count=25
+    )
     draw_title(
         image=standings_image, 
         header_height=header_height,
-        location="VG LEAGUE CHALLENGE • WAYWARD",
-        info="September 14th • Reg M-C • 23 Players"
+        local=local_object
     )
     draw_standings(standings_image)
     draw_signature(standings_image)
