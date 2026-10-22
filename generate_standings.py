@@ -109,6 +109,34 @@ SPECIAL_POKEMON_URL_ADJUSTMENTS = {
     "Tauros-Paldea-Combat": "tauros-paldea-combat-breed",
     "Tauros-Paldea-Blaze": "tauros-paldea-blaze-breed",
     "Tauros-Paldea-Aqua": "tauros-paldea-aqua-breed",
+    "Unown-A": "unown",
+    "Unown-B": "unown",
+    "Unown-C": "unown",
+    "Unown-D": "unown",
+    "Unown-E": "unown",
+    "Unown-F": "unown",
+    "Unown-G": "unown",
+    "Unown-H": "unown",
+    "Unown-I": "unown",
+    "Unown-J": "unown",
+    "Unown-K": "unown",
+    "Unown-L": "unown",
+    "Unown-M": "unown",
+    "Unown-N": "unown",
+    "Unown-O": "unown",
+    "Unown-P": "unown",
+    "Unown-Q": "unown",
+    "Unown-R": "unown",
+    "Unown-S": "unown",
+    "Unown-T": "unown",
+    "Unown-U": "unown",
+    "Unown-V": "unown",
+    "Unown-W": "unown",
+    "Unown-X": "unown",
+    "Unown-Y": "unown",
+    "Unown-Z": "unown",
+    "Unown-Exclamation": "unown",
+    "Unown-Question": "unown",
     "Deoxys": "deoxys-normal",
     "Wormadam": "wormadam-plant",
     "Cherrim-Sunshine": "cherrim",
@@ -343,6 +371,7 @@ TRAINER_NAME_NO_HANDLE_SIZE = 40
 TRAINER_NAME_BORDER = 4
 TRAINER_POKEMON_SPRITE_SIZE = 100
 TRAINER_POKEMON_SPRITE_BORDER = 7
+TRAINER_POKEMON_SPRITE_XCORR_PUSH = 5
 
 SIGNATURE_LIFT = 5
 SIGNATURE_PLATE_RADIUS = 15
@@ -757,7 +786,7 @@ def draw_trainer_card(image, trainer, placing, bounds):
                 )
 
                 # Center the sprite within its slot
-                sprite_x = int(center_x - sprite.width / 2)
+                sprite_x = int(center_x - sprite.width / 2) + TRAINER_POKEMON_SPRITE_XCORR_PUSH
                 image.paste(
                     sprite,
                     (sprite_x, sprite_y),
@@ -829,37 +858,57 @@ def draw_signature(image):
         fill=TEXT_COLOR
     )
 
-"""
-This will take the Standings of the players from the given CSV file and then draw them to the Standings image
-"""
-def draw_standings(image, filename="standings.csv"):
-    # Create the Trainers class for each given in the csv
-    local_standings = {}
+def gather_data(filename="data.csv"):
+    # Create the Trainers class  for each given in the csv
+    trainers = {}
+
     with open(filename, mode="r", encoding="utf-8") as file:
         # Create the reader for the csv file
-        reader = csv.reader(file)
+        csv_reader = csv.reader(file)
 
+        # Skip the first row of headers and create the Local object
+        _ = next(csv_reader)
+        local_data = next(csv_reader)
+        local = Local(
+            location=local_data[0],
+            date=local_data[1],
+            challenge=True if local_data[2] else False,
+            cup=True if local_data[3] else False,
+            regulation=local_data[4],
+            player_count=local_data[5]
+        )
+        _ = next(csv_reader)
+        
         # Loop through each row skipping the headers and build a Trainer class for the standings
-        _ = next(reader)
-        for trainer_data in reader:
+        _ = next(csv_reader)
+        for trainer_data in csv_reader:
             if trainer_data[0] == "":
                 break
-            local_standings[trainer_data[0]] = build_trainer(
+            trainers[trainer_data[0]] = build_trainer(
                 name=trainer_data[1],
                 handle=trainer_data[2],
                 local=trainer_data[3],
                 pokepaste=trainer_data[4]
             )
 
+    # Once the data is created return the local and the trainer objects
+    return local, trainers
+
+
+"""
+This will take the Standings of the players from the given CSV file and then draw them to the Standings image
+"""
+def draw_standings(image, trainers):
     # With the standings create the box for each
     positions = get_card_positions(
         image_width=image.width,
         image_height=image.height,
-        count=len(local_standings),
+        count=len(trainers),
         top=header_height + RHOMBUS_HEIGHT
     )
 
-    for (placing, trainer), bounds in zip(local_standings.items(), positions):
+    # Draw inside each trainer card
+    for (placing, trainer), bounds in zip(trainers.items(), positions):
         draw_trainer_card(
             image=image,
             trainer=trainer,
@@ -872,21 +921,14 @@ def draw_standings(image, filename="standings.csv"):
 # -- Main -----------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    filename="standings.png"
+    standings_image_filename="standings.png"
     standings_image, header_height = draw_theme(theme=THEMES["Portland - Dark"])
-    local_object = Local(
-        challenge=True, 
-        cup=False,
-        location="wayward",
-        date="September 14th",
-        regulation="M-C",
-        player_count=25
-    )
+    local, trainers = gather_data()
     draw_title(
         image=standings_image, 
         header_height=header_height,
-        local=local_object
+        local=local
     )
-    draw_standings(standings_image)
-    draw_signature(standings_image)
-    standings_image.save(filename)
+    draw_standings(image=standings_image, trainers=trainers)
+    draw_signature(image=standings_image)
+    standings_image.save(standings_image_filename)
