@@ -6,7 +6,7 @@ A Python tool that automates the creation of Pokémon Video Game Championships (
 
 * **CSV-based tournament data**: Store tournament metadata and player standings in one file.
 * **PokéPaste integration**: Retrieve each player's Pokémon team from a PokéPaste URL.
-* **Pokémon artwork**: Display Pokémon sprites and artwork using image URLs from PokéAPI and other supported sources.
+* **Pokémon artwork**: Display Pokémon sprites and artwork using image URLs from PokéAPI Sprites and other supported sources.
 * **Automated standings cards**: Generate player cards containing placement, player name, handle, and Pokémon team.
 * **Placement-based styling**: Highlight first, second, and third place with gold, silver, and bronze colors.
 * **Customizable graphics**: Configure colors, fonts, backgrounds, headers, borders, and layout.
@@ -15,7 +15,7 @@ A Python tool that automates the creation of Pokémon Video Game Championships (
 ## Requirements
 
 ### If you want to just run the script
-All that is needed to run the script is to adjust the `data.csv` file within the directory and run the `.eve` to create the standings.
+To generate the standings, update the data.csv file in the project directory and run the `.exe` executable.
 
 ### If you want to iterate on the scripting
 * Python 3.10 or later recommended.
@@ -43,9 +43,9 @@ pip install -r requirements.txt
 
 The generator uses a single CSV file containing two sections:
 
-### Tournament metadata.
+### Tournament metadata
 
-The first row contains the metadata column names, and the second row contains the values for the tournament. For example, if you wanted to do a standings for a local that happeneds to be very simillar to the Masters Eight tournament you could do something like this.
+The first row contains the metadata column names, and the second row contains the values for the tournament. For example, if you wanted to do a standings graphic for a local that happens to be very similar to the Masters Eight tournament you could do something like this.
 
 |    location    |    date    | challenge | cup | regulation | player count |
 | :------------: |:----------:|:---------:|:---:|:----------:|:------------:|
@@ -53,7 +53,7 @@ The first row contains the metadata column names, and the second row contains th
 
 ### Player standings
 
-After the metadata, include a blank row followed by the player standings header. For example if you wanted to do a top 4 of that cup you would put these down.
+After the metadata, include a blank row followed by the player standings header. For example, if you wanted to do a top 4 of that cup you would put these down.
 
 | placing |     name    |    handle    |         local          |                paste                 |
 |:-------:|:-----------:|:------------:|:----------------------:|:------------------------------------:|
@@ -63,17 +63,17 @@ After the metadata, include a blank row followed by the player standings header.
 |    4    |   Diantha   |   @mskalos   |  Wyndon-Cup-7-8-2022   | https://pokepast.es/77ac36ad28fa6ea6 |
 
 #### Notes:
-* The `handle` is a location to put a players Twitter or X handle, this section can be left blank and the standings will adjust accordingly.
-* The `local` is input for a later time and more information can be found in the `Limitations and Future Improvements` in a later section.
+* The `handle` is a location to put a player's Twitter or X handle, this section can be left blank and the standings will adjust accordingly.
+* The local field is reserved for future functionality. See `Limitations and Future Improvements` for details.
 
-## Example Standing
+## Example Standings
 ![example](/standings.png "example")
 
 ## Usage
 
 1. Create a CSV file with the tournament metadata and player standings.
 2. Verify that each player's PokéPaste URL is accessible.
-3. Run the main Python script.
+3. Run the main Python script by using the command below, or run the `.exe`.
 ```
 python generate_standings.py
 ```
@@ -81,9 +81,10 @@ python generate_standings.py
 
 The exact command and output location depend on how the entry point and output path are configured in the current version of the project.
 
-If you are wanting to recreate the `.exe` run
+If you want to recreate the `.exe` run
 ```
- pyinstaller generate_standings.py --onefile --noconsole
+pip install pyinstaller 
+pyinstaller generate_standings.py --onefile --noconsole
  ```
 Then inside the `dist` folder pull out the `.exe` and move it into the main directory. You can then remove the `dist` and the `build` folders, as well as the `generate_standings.spec` file.
 
@@ -93,7 +94,7 @@ A suggested project structure is:
 ```
 vgc_standings/
 ├── generate_standings.py
-├── standings.csv
+├── data.csv
 ├── requirements.txt
 ├── README.md
 ├── assets/
@@ -129,11 +130,11 @@ The generator follows this general workflow:
 
 ### Data Sources
 
-* **PokéAPI** — Pokémon data and available sprites.
-* **PokéAPI Sprites Repository** — Pokémon sprite and artwork assets.
-* **PokéPaste** — Competitive Pokémon team exports.
+* **PokéAPI** — Provides Pokémon data and API endpoints used to retrieve Pokémon information.
+* **PokéAPI Sprites Repository** — Hosts Pokémon sprites and artwork, including official artwork and alternate visual assets.
+* **PokéPaste** — Hosts competitive Pokémon teams that the generator retrieves and parses.
 
-Some alternate Pokémon forms may not have the desired artwork available through the standard PokéAPI endpoints. These forms may require a separate image URL or a custom mapping. With new Pokemon being created this script may not be able to work with the inital release as it depends on the PokéAPI's data, but should update accordingly in due time.
+Some alternate Pokémon forms may not have the desired artwork available through the standard PokéAPI endpoints. These forms may require a separate image URL or a custom mapping. As new Pokémon and forms are introduced, they may not be supported immediately because the script relies on data available through PokéAPI. Support can be added as the API's data becomes available.
 
 ## Limitations and Future Improvements
 
