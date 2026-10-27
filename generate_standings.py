@@ -109,6 +109,7 @@ SPECIAL_POKEMON_URL_ADJUSTMENTS = {
     "Tauros-Paldea-Combat": "tauros-paldea-combat-breed",
     "Tauros-Paldea-Blaze": "tauros-paldea-blaze-breed",
     "Tauros-Paldea-Aqua": "tauros-paldea-aqua-breed",
+    "Mr. Mime": "mr-mime",
     "Unown-A": "unown",
     "Unown-B": "unown",
     "Unown-C": "unown",
@@ -222,12 +223,8 @@ SPECIAL_POKEMON_URL_ADJUSTMENTS = {
     "Meowstic-M-Mega": "meowstic-male-mega",
     "Meowstic-F-Mega": "meowstic-female-mega",
     "Meowstic-F": "meowstic-female",
-    "Pumpkaboo-Large": "pumpkaboo",
-    "Pumpkaboo-Small": "pumpkaboo",
-    "Pumpkaboo-Super": "pumpkaboo",
-    "Gourgeist-Large": "gourgeist",
-    "Gourgeist-Small": "gourgeist",
-    "Gourgeist-Super": "gourgeist",
+    "Pumpkaboo": "pumpkaboo-average",
+    "Gourgeist": "gourgeist-average",
     "Xerneas-Neutral": "xerneas",
     "Zygarde-10%": "zygarde",
     "Zygarde-Complete": "zygarde",
@@ -275,6 +272,8 @@ SPECIAL_POKEMON_URL_ADJUSTMENTS = {
     "Indeedee": "indeedee-male",
     "Indeedee-F": "indeedee-female",
     "Morpeko": "morpeko-full-belly",
+    "Sirfetchâ\x80\x99d": "sirfetchd",
+    "Mr. Rime": "mr-rime",
     "Urshifu": "urshifu-single-strike",
     "Basculegion": "basculegion-male",
     "Basculegion-F": "basculegion-female",
@@ -436,6 +435,7 @@ def deconstruct_pokepaste(pokepaste):
         first_line = lines[0]
 
         # If there is an item with the Pokemon add the name and item
+        ## NOTE: Some names of Pokemon can have different chars that wont read correctly from PokePaste (ex. Sirfetch'd), use 'print(repr(name))' do debug
         if "@" in first_line:
             name, item = first_line.split("@", 1)
             name = name.strip()
