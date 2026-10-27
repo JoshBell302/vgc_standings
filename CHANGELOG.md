@@ -1,4 +1,8 @@
 # Changelog
+## Version 1.3.1
+* Added .png and .csv to the gitignore so the example stays on the repo
+* Added the information to recreate the .exe if needed to the README
+
 ## Version 1.3.0
 * Added CHANGELOG, README, and examples to be used
 

@@ -81,6 +81,12 @@ python generate_standings.py
 
 The exact command and output location depend on how the entry point and output path are configured in the current version of the project.
 
+If you are wanting to recreate the `.exe` run
+```
+ pyinstaller generate_standings.py --onefile --noconsole
+ ```
+Then inside the `dist` folder pull out the `.exe` and move it into the main directory. You can then remove the `dist` and the `build` folders, as well as the `generate_standings.spec` file.
+
 ## Project Structure
 A suggested project structure is:
 
