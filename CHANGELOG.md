@@ -1,4 +1,7 @@
 # Changelog
+## Version 1.3.3
+* Hotfix: Added Aegislash to the URL Adjustments list
+
 ## Version 1.3.2
 * Cleaned up the README
 

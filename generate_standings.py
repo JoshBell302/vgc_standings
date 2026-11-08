@@ -220,6 +220,7 @@ SPECIAL_POKEMON_URL_ADJUSTMENTS = {
     "Furfrou-Kabuki": "furfrou",
     "Furfrou-Pharaoh": "furfrou",
     "Meowstic": "meowstic-male",
+    "Aegislash": "aegislash-shield",
     "Meowstic-M-Mega": "meowstic-male-mega",
     "Meowstic-F-Mega": "meowstic-female-mega",
     "Meowstic-F": "meowstic-female",
